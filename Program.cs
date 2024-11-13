@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.StaticFiles.Infrastructure;
+
 bool CanBuildFrom(char[] leter, string str)
 {
     Dictionary<int, int> Dic = new Dictionary<int, int>();
@@ -26,6 +28,30 @@ bool CanBuildFrom(char[] leter, string str)
         }
     return true;
 }
-char[] leter = new char[] { 'a', 'o', 'b' };
-string str = "BAOBAB";
-Console.WriteLine(CanBuildFrom(leter, str));
+Dictionary<char, int>  extractRepeats(char[] charMas)
+{
+    Dictionary<char, int> returnalDictionary = new Dictionary<char, int>();
+    Array.Sort(charMas);
+    int Temp = 1;
+    for(int i = 0; i < charMas.Length - 1; i++)
+    {
+        if(charMas[i] == charMas[i+1]) 
+            Temp++;
+        else
+        {
+            if(Temp > 1)
+            {
+                returnalDictionary.Add(charMas[i], Temp);
+                Temp = 1;
+            }
+        }
+    }
+    return returnalDictionary;
+}
+
+char[] a = new char[]{'a'};
+Dictionary<char, int> dic = extractRepeats(a);
+foreach(var b in dic)
+{
+    Console.WriteLine(b.Key + "   " + b.Value);
+}
